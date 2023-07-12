@@ -1,27 +1,32 @@
 function calculateMinCost() {
   //your code here
-	let value = document.getElementById('rope-lengths').value;
-	let resultFinal = document.getElementById('result');
-  value = value.split(',');
-  let arr = [];
-  for(let i=0;i<value.length;i++){
-    arr[i] = parseInt(value[i]);
+	var input = document.getElementById('rope-input').value;
+
+  // Parse the input into an array of integers
+  var ropeLengths = input.split(',').map(Number);
+
+  // Sort the array in non-decreasing order
+  ropeLengths.sort((a, b) => a - b);
+
+  // Initialize variables
+  var totalCost = 0;
+  var n = ropeLengths.length;
+
+  // Merge the ropes until there's only one left
+  while (n > 1) {
+    // Calculate the cost of merging the two smallest ropes
+    var cost = ropeLengths[0] + ropeLengths[1];
+
+    // Update the total cost
+    totalCost += cost;
+
+    // Merge the two ropes by removing them from the array and adding their sum
+    ropeLengths.splice(0, 2, cost);
+
+    // Update the number of ropes
+    n--;
   }
-  arr = arr.sort(function (a,b){ return a-b;});
-	if(arr.length==2){
-		resultFinal.innerText = arr[0]+arr[1];
-		return;
-	}
-  let temp = 0;
-  let result = 0;
-  for(let i=0;i<arr.length;i++){
-    temp = arr[0]+arr[1];
-    result += temp;
-    arr.splice(0,2,temp);
-    arr=arr.sort(function (a,b){ return a-b;});
-  }
-  result += arr[0]+arr[1];
-  
-  let resultFinal = document.getElementById('result');
-  resultFinal.innerText = result;
+
+  // Print the minimum cost inside the result div
+  document.getElementById('result').innerHTML = totalCost;
 }  
