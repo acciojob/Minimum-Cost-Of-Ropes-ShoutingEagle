@@ -1,6 +1,6 @@
 function calculateMinCost() {
   //your code here
-	var input = document.getElementById('rope-input').value;
+	var input = document.getElementById('rope-lengths').value;
 
   // Parse the input into an array of integers
   var ropeLengths = input.split(',').map(Number);
